@@ -6,7 +6,10 @@ export const api = createApi({
     getServices: builder.query({
       query: () => '/services',
     }),
+    getService: builder.query({
+      query: (serviceId) => `/services/${serviceId}`,
+    }),
   }),
 });
 
-export const { useGetServicesQuery } = api;
+export const { useGetServicesQuery, useGetServiceQuery } = api;
