@@ -9,7 +9,18 @@ export const api = createApi({
     getService: builder.query({
       query: (serviceId) => `/services/${serviceId}`,
     }),
+    makeContact: builder.mutation({
+      query: (body) => ({
+        url: '/contact',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetServicesQuery, useGetServiceQuery } = api;
+export const { 
+  useGetServicesQuery,
+  useGetServiceQuery,
+  useMakeContactMutation
+} = api;
