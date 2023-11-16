@@ -50,12 +50,17 @@ export const api = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: ['Dogs'],
-      onQueryStarted(id, { dispatch }) {
-        dispatch(
+      // it updates the cache with the new data before the delete is complete
+      onQueryStarted(id, { dispatch, queryFulfilled }) {
+        const update = dispatch(
           api.util.updateQueryData('getDogs', undefined, (dogs) => {
             delete dogs[id];
           })
-        )
+        );
+        // revert the update if the request fails
+        queryFulfilled.catch(() => {
+          update.undo();
+        });
       }
     }),
   }),
