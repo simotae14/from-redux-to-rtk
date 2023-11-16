@@ -1,13 +1,27 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: '/api',
+    // headers: {
+    //   "x-custom-header-global": Math.random(),
+    // },
+    prepareHeaders: (headers) => {
+      headers.set('x-custom-header-global', Math.random());
+      return headers;
+    }
+  }),
   refetchOnFocus: true, // when you change tab and return the data will be refetched automatically
   refetchOnReconnect: true, // when you lose internet connection and reconnect the data will be refetched automatically
   tagTypes: ['Services', 'Dogs'],
   endpoints: (builder) => ({
     getServices: builder.query({
-      query: () => '/services',
+      query: () => ({
+        url: '/services',
+        headers: {
+          "x-custom-header": Math.random(),
+        },
+      }),
     }),
     getService: builder.query({
       query: (serviceId) => `/services/${serviceId}`,
