@@ -6,6 +6,7 @@ export const api = createApi({
   endpoints: (builder) => ({
     getServices: builder.query({
       query: () => '/services',
+      keepUnusedDataFor: 15,
     }),
     getService: builder.query({
       query: (serviceId) => `/services/${serviceId}`,
