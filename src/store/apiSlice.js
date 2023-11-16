@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  refetchOnFocus: true, // when you change tab and return the data will be refetched automatically
+  refetchOnReconnect: true, // when you lose internet connection and reconnect the data will be refetched automatically
   tagTypes: ['Services', 'Dogs'],
   endpoints: (builder) => ({
     getServices: builder.query({
