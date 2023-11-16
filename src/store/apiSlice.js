@@ -32,10 +32,18 @@ export const api = createApi({
         return allDogs;
       }
     }),
+    addDog: builder.mutation({
+      query: (body) => ({
+        url: '/dogs',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
 export const { 
+  useAddDogMutation,
   useGetServicesQuery,
   useGetServiceQuery,
   useMakeContactMutation,
